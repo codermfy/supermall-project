@@ -3,7 +3,7 @@
   <swiper>
     <swiper-item v-for="item in banners">
       <a :href="item.link">
-        <img :src="item.image" alt="">
+        <img :src="item.image" alt="" @load="imageload">
       </a>
     </swiper-item>
   </swiper>
@@ -26,6 +26,19 @@ export default {
   components:{
     SwiperItem,
     Swiper
+  },
+  data(){
+    return {
+      isemit:false
+    }
+  },
+  methods:{
+    imageload(){
+      if(!this.isemit) {
+        this.$emit('imageloaded')
+        this.isemit=true
+      }
+    }
   }
 }
 </script>

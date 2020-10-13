@@ -29,6 +29,17 @@ export function request(config) {
 
   //3.发送真正网络请求 instance也是Promise
   return instance(config)
-
-
+}
+export function request_local(config){
+  const instance = axios.create({
+    baseURL: '/data',
+    timeout: 5000
+  })
+  instance.interceptors.response.use(res => {
+    // console.log(res)
+    return res.data.result.wall.docs
+  }, err => {
+    console.log(err)
+  })
+  return instance(config)
 }
