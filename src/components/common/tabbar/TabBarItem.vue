@@ -1,6 +1,6 @@
 <template>
 
-		<div class="tabbar-item" @click="itemClick">
+		<div class="tab-bar-item" @click="itemClick">
 			<div v-if='!isActive'>
 				<slot name='item-icon'></slot>
 			</div>
@@ -37,7 +37,7 @@
 			activeStyle(){
 				return this.isActive ? {color:this.activeColor}:{}
 			}
-			
+
 		},
 		methods:{
 			itemClick(){
@@ -45,18 +45,18 @@
 				this.$router.replace(this.path)
 			}
 		}
-		
+
 	}
 </script>
 
 <style scoped>
-	.tabbar-item{
+	.tab-bar-item{
 		flex:1;
 		text-align:center;
 		height:49px;
 		font-size: 12px;
 	}
-	.tabbar-item img{
+	.tab-bar-item img{
 		width:24px;
 		height: 24px;
 		margin-top:3px;

@@ -35,6 +35,7 @@
   import {getHomeMultidata,getHomeGoods} from "network/home";
   import {debounce} from "common/utils";
 
+
   export default {
 		name:"Home",
     components:{
@@ -60,7 +61,9 @@
         isShow:false,
         taboffsetTop:0,
         isfixed:false,
-        saveY:0
+        saveY:0,
+        ItemImgListener:null,
+
       }
     },
     computed:{
@@ -74,6 +77,8 @@
     },
     deactivated() {
 		  this.saveY=this.$refs.scroll.getScrollY()
+      //离开取消全局事件监听
+      this.$bus.$off('itemImageLoad',this.ItemImgListener)
     },
     created() {
 		  //1.请求多个数据
@@ -92,9 +97,10 @@
       //只要在delay时间内有调用函数，则清除timer重新设置timer，
       // delay时间重新算，否则超出时间则调用一次函数
       const refresh=debounce(this.$refs.scroll.refresh,100)
-      this.$bus.$on('itemImageLoad',()=>{
+      this.ItemImgListener= ()=> {
         refresh()
-      })
+      }
+        this.$bus.$on('itemImageLoad',this.ItemImgListener)
 
     },
     methods:{

@@ -1,7 +1,7 @@
 <template>
 
-  <div class="goods-item">
-    <img :src="goodsItem.img" alt="" @load="imageLoad">
+  <div class="goods-item" @click="itemClick">
+    <img v-lazy="goodsItem.img" alt="" @load="imageLoad">
     <div class="goods-info">
     <p>{{goodsItem.title}}</p>
     <span class="price">{{'￥'+goodsItem.price.toFixed(2)}}</span>
@@ -28,6 +28,10 @@ export default {
       //使用事件总线$bus来发射事件，Home中获取事件并执行refresh
       //涉及非父子组件的通信，我们选择了事件总线
       this.$bus.$emit('itemImageLoad')
+    },
+    itemClick(){
+      this.$router.push('/detail/'+this.goodsItem.tradeItemId)
+      // console.log(this.$router);
     }
   }
 }
